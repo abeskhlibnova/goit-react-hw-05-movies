@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { MovieCredits } from 'services/api/Api';
-import nophoto from 'images/nophoto.jpg';
+// import nophoto from 'images/nophoto.jpg';
 
 export default function Cast() {
   const [movieCast, setMovieCast] = useState([]);

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { SearchMovies } from 'services/api/Api';
 import MoviesTrendingList from 'components/MoviesTrendingList/MoviesTrendingList';
 import SearchMovieForm from 'components/SearchMovieForm/SearchMovieForm';
-import { Outlet } from 'react-router-dom';
+// import { Outlet } from 'react-router-dom';
 
 export default function Movies() {
   const [search, setSearch] = useState('');
