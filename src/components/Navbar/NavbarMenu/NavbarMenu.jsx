@@ -1,18 +1,17 @@
-import { NavLink } from 'react-router-dom';
-// import styled from 'styled-components';
+// import { NavLink } from 'react-router-dom';
 import items from './items';
-import { NavbarMenuWrapper, NavbarItems } from './NavbarMenu.styled';
+import { StyledNavLink, NavbarMenuUl, NavbarItems } from './NavbarMenu.styled';
 
 export default function NavbarMenu() {
   const elements = items.map(({ id, to, text, icon: Icon }) => {
     return (
       <NavbarItems key={id}>
-        <NavLink to={to}>
+        <StyledNavLink to={to} end>
           <Icon size="20" />
           {text}
-        </NavLink>
+        </StyledNavLink>
       </NavbarItems>
     );
   });
-  return <NavbarMenuWrapper>{elements}</NavbarMenuWrapper>;
+  return <NavbarMenuUl>{elements}</NavbarMenuUl>;
 }

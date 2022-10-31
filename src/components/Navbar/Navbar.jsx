@@ -1,19 +1,18 @@
-import { Link } from 'react-router-dom';
-// import styles from './navbar.module.scss';
+// import { Link } from 'react-router-dom';
 import NavbarMenu from './NavbarMenu/NavbarMenu';
 import { FcFilmReel } from 'react-icons/fc';
 import { IconContext } from 'react-icons';
-import { Header, NavMenu } from './NavBar.styled';
+import { Header, NavMenu, StyledLink } from './NavBar.styled';
 
 export default function Navbar() {
   return (
     <Header>
       <NavMenu>
-        <Link to="/">
+        <StyledLink to="/">
           <IconContext.Provider value={{ color: '#3f51b5', size: '40px' }}>
             <FcFilmReel />
           </IconContext.Provider>
-        </Link>
+        </StyledLink>
         <NavbarMenu />
       </NavMenu>
     </Header>
