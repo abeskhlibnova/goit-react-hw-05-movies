@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { MovieReviews } from 'services/api/Api';
+import {
+  Button,
+  StyledUl,
+  StyledLi,
+  Description,
+  ErrorInfo,
+} from './Reviews.styled';
+import noInfo from 'images/noInfo.png';
 
 export default function Reviews() {
   const [movieReviews, setMovieReviews] = useState([]);
@@ -16,22 +24,28 @@ export default function Reviews() {
   }, [movieId]);
 
   const elements = movieReviews.map(({ id, author, content }) => (
-    <li key={id}>
-      <p>Author: {author}</p>
-      <p>{content}</p>
-    </li>
+    <StyledLi key={id}>
+      <Description>Author: {author}</Description>
+      <Description>{content}</Description>
+    </StyledLi>
   ));
   const goBack = () => navigate(-1);
-  return movieReviews.length === 0 ? (
-    <div>
-      Sorry, We don't have any information about reviews for this movies
-    </div>
-  ) : (
+  return (
     <>
-      <button type="button" onClick={goBack}>
+      <Button type="button" onClick={goBack}>
         Close reviews
-      </button>
-      <ul>{elements}</ul>
+      </Button>
+      {movieReviews.length === 0 ? (
+        <ErrorInfo>
+          <p>
+            Sorry, We don't have any information about reviews for this movies
+          </p>
+          <img src={noInfo} alt="" width="150" />
+        </ErrorInfo>
+      ) : (
+        <StyledUl>{elements}</StyledUl>
+      )}
+      ;
     </>
   );
 }

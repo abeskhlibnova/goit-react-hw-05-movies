@@ -1,7 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { MovieCredits } from 'services/api/Api';
-// import nophoto from 'images/nophoto.jpg';
+import {
+  Button,
+  StyledUl,
+  StyledImg,
+  StyledLi,
+  Description,
+  ErrorInfo,
+} from './Cast.styled';
+import noInfo from 'images/noInfo.png';
 
 export default function Cast() {
   const [movieCast, setMovieCast] = useState([]);
@@ -17,56 +25,35 @@ export default function Cast() {
   }, [movieId]);
 
   const elements = movieCast.map(({ id, profile_path, name, character }) => (
-    <li key={id}>
-      <img
+    <StyledLi key={id}>
+      <StyledImg
         src={`https://image.tmdb.org/t/p/w500${profile_path}`}
-        alt={name}
+        alt=""
         width="100"
       />
       <div>
-        <p>{name}</p>
-        <p>{character}</p>
+        <Description>{name}</Description>
+        <Description>{character}</Description>
       </div>
-    </li>
+    </StyledLi>
   ));
   const goBack = () => navigate(-1);
 
   return (
     <>
-      <button type="button" onClick={goBack}>
+      <Button type="button" onClick={goBack}>
         Close cast{' '}
-      </button>
+      </Button>
       {movieCast.length === 0 ? (
-        <div>
-          Sorry, We don't have any information about actors for this movies
-        </div>
+        <ErrorInfo>
+          <p>
+            Sorry, We don't have any information about reviews for this movies
+          </p>
+          <img src={noInfo} alt="" width="150" />
+        </ErrorInfo>
       ) : (
-        <ul>{elements}</ul>
+        <StyledUl>{elements}</StyledUl>
       )}
     </>
   );
 }
-
-// <img
-//   src={`https://image.tmdb.org/t/p/w500${profile_path}`}
-//   alt={name}
-//   width="100"
-// />;
-
-// function App() {
-//   const [isLoading, setLoading] = React.useState(true);
-//   const handleOnLoad = () => {
-//     setLoading(false);
-//   };
-
-//   return (
-//     <div>
-//       {isLoading && <div>*Заглушка*</div>}
-//       <img
-//         alt="alt"
-//         onLoad={handleOnLoad}
-//         src="https://i.5sfer.com/post/postImage/thumb-8ipwnn.jpg"
-//       />
-//     </div>
-//   );
-// }

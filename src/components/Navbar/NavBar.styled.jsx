@@ -17,6 +17,8 @@ export const NavMenu = styled.nav`
   display: flex;
   justify-content: baseline;
   align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 export const StyledLink = styled(Link)`
   padding-left: 20px;

@@ -1,16 +1,23 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Outlet } from 'react-router-dom';
 import { fetchMovieDetails } from 'services/api/Api';
-import { Link } from 'react-router-dom';
+import {
+  MovieDetailsBox,
+  MovieInfoBox,
+  StyledOverview,
+  Button,
+  StyledUl,
+  StyledLi,
+  StyledTitle,
+  StyledLink,
+  StyledInfoTittle,
+} from './MovieDetails.styled';
 
 export default function MovieDetails() {
   const [movieDetails, setMovieDetails] = useState('');
   const [genresMovie, setGenresMovie] = useState([]);
   const { movieId } = useParams();
   const navigate = useNavigate();
-  //   const location = useLocation()
-  //   const from = location.movieDetails?.from;
-  //   console.log(location);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -34,53 +41,53 @@ export default function MovieDetails() {
 
   const goBack = () => navigate(-1);
 
-  //   const isCastPage = location.pathname.includes('cast');
-  //   const castLink = isCastPage
-  //     ? `/movies/${movieId}`
-  //     : `/movies/${movieId}/cast`;
-
   if (!movieDetails) {
-    return <div>Sorry,something went wrong</div>;
+    return <div>Sorry,no information</div>;
   }
 
   return (
-    <div>
-      <button onClick={goBack}>Go back</button>
-      <img
-        src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-        alt={title}
-        width="250"
-      />
+    <MovieDetailsBox>
+      <MovieInfoBox>
+        <div>
+          <Button onClick={goBack}>Go back</Button>
+          <img
+            src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+            alt={title}
+            width="250"
+          />
+        </div>
+        <StyledOverview>
+          <StyledTitle>
+            {title} ({releaseDate})
+          </StyledTitle>
+          <StyledUl>
+            <StyledLi>
+              <p>Rating: {rating}</p>
+            </StyledLi>
+            <StyledLi>
+              <p>Overview: </p>
+              <p>{overview}</p>
+            </StyledLi>
+            <StyledLi>
+              <p>Genres: </p>
+              <p>{genres}</p>
+            </StyledLi>
+          </StyledUl>
+        </StyledOverview>
+      </MovieInfoBox>
       <div>
-        <h2>
-          {title} ({releaseDate})
-        </h2>
-        <ul>
-          <li>
-            <p>Rating: </p>
-            <p>{rating}</p>
-          </li>
-          <li>
-            <p>Overview: </p>
-            <p>{overview}</p>
-          </li>
-          <li>
-            <p>Genres: </p>
-            <p>{genres}</p>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <h3>Additional information</h3>
-        <Link to={'cast'}>Cast:</Link>
-        <Link to={'reviews'}>Reviews: </Link>
+        <StyledInfoTittle>Additional information</StyledInfoTittle>
+        <StyledUl>
+          <StyledLi>
+            <StyledLink to={'cast'}>Cast - click to see more</StyledLink>
+          </StyledLi>
+          <StyledLi>
+            <StyledLink to={'reviews'}>Reviews - click to see more</StyledLink>
+          </StyledLi>
+        </StyledUl>
       </div>
 
       <Outlet />
-    </div>
+    </MovieDetailsBox>
   );
 }
-
-// <Link state={{ from }} to={castLink}>
-//   Cast:{' '}
-// </Link>;
