@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Outlet, useLocation } from 'react-router-dom';
+import { useParams, useNavigate, Outlet } from 'react-router-dom';
 import { fetchMovieDetails } from 'services/api/Api';
 import { Link } from 'react-router-dom';
 
