@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Outlet } from 'react-router-dom';
+import { useParams, useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { fetchMovieDetails } from 'services/api/Api';
 import { Link } from 'react-router-dom';
 
@@ -8,6 +8,9 @@ export default function MovieDetails() {
   const [genresMovie, setGenresMovie] = useState([]);
   const { movieId } = useParams();
   const navigate = useNavigate();
+  //   const location = useLocation()
+  //   const from = location.movieDetails?.from;
+  //   console.log(location);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -23,12 +26,23 @@ export default function MovieDetails() {
 
   const data = new Date(release_date);
   const releaseDate = data.getFullYear();
+
   const vote = Number(vote_average);
   const rating = vote.toFixed(2);
 
   const genres = genresMovie.map(item => item.name).join(', ');
 
   const goBack = () => navigate(-1);
+
+  //   const isCastPage = location.pathname.includes('cast');
+  //   const castLink = isCastPage
+  //     ? `/movies/${movieId}`
+  //     : `/movies/${movieId}/cast`;
+
+  if (!movieDetails) {
+    return <div>Sorry,something went wrong</div>;
+  }
+
   return (
     <div>
       <button onClick={goBack}>Go back</button>
@@ -54,21 +68,19 @@ export default function MovieDetails() {
             <p>Genres: </p>
             <p>{genres}</p>
           </li>
-          <li></li>
         </ul>
       </div>
-
-      <h3>Additional information</h3>
-      <ul>
-        <li>
-          <Link to="cast">Link</Link>
-        </li>
-        <li>
-          <Link to="reviews">Reviews: </Link>
-        </li>
-      </ul>
+      <div>
+        <h3>Additional information</h3>
+        <Link to={'cast'}>Cast:</Link>
+        <Link to={'reviews'}>Reviews: </Link>
+      </div>
 
       <Outlet />
     </div>
   );
 }
+
+// <Link state={{ from }} to={castLink}>
+//   Cast:{' '}
+// </Link>;

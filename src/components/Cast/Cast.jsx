@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { MovieCredits } from 'services/api/Api';
 // import nophoto from 'images/nophoto.jpg';
 
 export default function Cast() {
   const [movieCast, setMovieCast] = useState([]);
   const { movieId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMovieCast = async () => {
@@ -28,11 +29,21 @@ export default function Cast() {
       </div>
     </li>
   ));
+  const goBack = () => navigate(-1);
 
-  return movieCast.length === 0 ? (
-    <div>Sorry, We don't have any information about actors for this movies</div>
-  ) : (
-    <ul>{elements}</ul>
+  return (
+    <>
+      <button type="button" onClick={goBack}>
+        Close cast{' '}
+      </button>
+      {movieCast.length === 0 ? (
+        <div>
+          Sorry, We don't have any information about actors for this movies
+        </div>
+      ) : (
+        <ul>{elements}</ul>
+      )}
+    </>
   );
 }
 

@@ -13,10 +13,10 @@ export const TrendingMovies = async () => {
   }
 };
 
-export const SearchMovies = async (search, page) => {
+export const SearchMovies = async search => {
   try {
     const response = await axios.get(
-      `/search/movie?api_key=${API_KEY}&language=en-US&query=${search}&page=${page}&include_adult=false`
+      `/search/movie?api_key=${API_KEY}&language=en-US&query=${search}&page=1&include_adult=false`
     );
     const data = await response.data;
     return data;

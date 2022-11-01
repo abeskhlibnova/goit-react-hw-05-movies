@@ -7,6 +7,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+
 }
 
 code {
@@ -18,4 +20,7 @@ li {
 }
 a {
   text-decoration: none;
+}
+h1, h2, h3, h4, h5, p {
+  color: white
 }

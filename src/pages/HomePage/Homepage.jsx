@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { TrendingMovies } from 'services/api/Api';
-import MoviesTrendingList from 'components/MoviesTrendingList/MoviesTrendingList';
+import MovieList from 'components/MoviesLists/MovieList';
+import { TitleHome } from './HomePage.styled';
 
 export default function HomePage() {
   const [movies, setMovies] = useState([]);
-  const location = useLocation();
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -18,8 +17,8 @@ export default function HomePage() {
 
   return (
     <>
-      <div>Trending Movies Today</div>
-      <MoviesTrendingList items={movies} location={location} />
+      <TitleHome>Trending Movies Today</TitleHome>
+      <MovieList items={movies} />
     </>
   );
 }

@@ -11,14 +11,18 @@ export const NavbarItems = styled.li`
 `;
 
 export const StyledNavLink = styled(NavLink)`
-  color: #3f51b5;
+  color: #fff;
   font-size: 30px;
 
   &:hover {
-    color: orange;
+    color: pink;
   }
 
   &.active {
-    color: red;
+    color: rgba(66, 27, 146);
+    border: 1px solid white;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 10px;
   }
 `;
