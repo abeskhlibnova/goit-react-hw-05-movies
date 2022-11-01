@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { SearchMovies } from 'services/api/Api';
 import SearchMovieForm from 'components/SearchMovieForm/SearchMovieForm';
 import MovieList from 'components/MoviesLists/MovieList';
+import { MovieWrapper } from './Movies.styled';
 // import Button from 'components/Button/Button';
 
 export default function Movies() {
@@ -45,11 +46,13 @@ export default function Movies() {
   //   const loadMore = () => setPage(prevPage => prevPage + 1);
 
   return (
-    <>
+    <MovieWrapper>
       <SearchMovieForm onSubmit={handleSubmit} />
-      <MovieList items={movies} />
+      {searchQuery === null && <p>Please, enter something in form above</p>}
+      {searchQuery !== null && <MovieList items={movies} />}
+
       {/* <Button onClick={loadMore}>Load More</Button> */}
-    </>
+    </MovieWrapper>
   );
 }
 // ///////////////////////////////////////////////////////

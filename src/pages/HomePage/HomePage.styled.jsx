@@ -6,4 +6,6 @@ export const TitleHome = styled.h2`
   font-weight: 900;
   text-shadow: 2px 2px 2px white, 0 2px 2px white, -2px 0 2px white,
     0 -2px 2px white;
+  margin-left: auto;
+  margin-right: auto;
 `;
