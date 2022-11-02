@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { MovieCredits } from 'services/api/Api';
 import {
-  Button,
   StyledUl,
   StyledImg,
   StyledLi,
@@ -14,7 +13,6 @@ import noInfo from 'images/noInfo.png';
 export default function Cast() {
   const [movieCast, setMovieCast] = useState([]);
   const { movieId } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMovieCast = async () => {
@@ -37,13 +35,9 @@ export default function Cast() {
       </div>
     </StyledLi>
   ));
-  const goBack = () => navigate(-1);
 
   return (
     <>
-      <Button type="button" onClick={goBack}>
-        Close cast{' '}
-      </Button>
       {movieCast.length === 0 ? (
         <ErrorInfo>
           <p>

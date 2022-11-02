@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Outlet } from 'react-router-dom';
+import { useState, useEffect, Suspense } from 'react';
+import { useParams, Outlet, useLocation } from 'react-router-dom';
 import { fetchMovieDetails } from 'services/api/Api';
+import Loader from 'components/Loader/Loader';
 import {
   MovieDetailsBox,
   MovieInfoBox,
   StyledOverview,
-  Button,
   StyledUl,
   StyledLi,
   StyledTitle,
@@ -17,7 +17,9 @@ export default function MovieDetails() {
   const [movieDetails, setMovieDetails] = useState('');
   const [genresMovie, setGenresMovie] = useState([]);
   const { movieId } = useParams();
-  const navigate = useNavigate();
+
+  const location = useLocation();
+  const goBack = location.state?.from ?? '/';
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -39,8 +41,6 @@ export default function MovieDetails() {
 
   const genres = genresMovie.map(item => item.name).join(', ');
 
-  const goBack = () => navigate(-1);
-
   if (!movieDetails) {
     return <div>Sorry,no information</div>;
   }
@@ -49,7 +49,7 @@ export default function MovieDetails() {
     <MovieDetailsBox>
       <MovieInfoBox>
         <div>
-          <Button onClick={goBack}>Go back</Button>
+          <StyledLink to={goBack}>Go back</StyledLink>
           <img
             src={`https://image.tmdb.org/t/p/w500${poster_path}`}
             alt={title}
@@ -79,15 +79,20 @@ export default function MovieDetails() {
         <StyledInfoTittle>Additional information</StyledInfoTittle>
         <StyledUl>
           <StyledLi>
-            <StyledLink to={'cast'}>Cast - click to see more</StyledLink>
+            <StyledLink to="cast" state={{ from: goBack }}>
+              Cast
+            </StyledLink>
           </StyledLi>
           <StyledLi>
-            <StyledLink to={'reviews'}>Reviews - click to see more</StyledLink>
+            <StyledLink to="reviews" state={{ from: goBack }}>
+              Reviews
+            </StyledLink>
           </StyledLi>
         </StyledUl>
       </div>
-
-      <Outlet />
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
     </MovieDetailsBox>
   );
 }

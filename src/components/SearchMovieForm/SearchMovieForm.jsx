@@ -7,12 +7,13 @@ import {
   SearchFormButton,
 } from './SearchMovieForm.styled';
 
-export default function SearchMovieForm({ onSubmit }) {
+export default function SearchMovieForm({ onSubmit, onChange }) {
   return (
     <SearchForm onSubmit={onSubmit}>
       <SearchFormInput
+        onChange={e => onChange(e.target.value)}
         type="text"
-        name="search"
+        name="searchQuery"
         autoFocus
         placeholder="Search movies"
       />

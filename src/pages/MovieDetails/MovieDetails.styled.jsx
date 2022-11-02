@@ -47,6 +47,7 @@ export const StyledLink = styled(Link)`
   font-weight: 700;
   width: 150px;
   height: 40px;
+  margin-bottom: 20px;
 `;
 
 export const StyledInfoTittle = styled.h3``;

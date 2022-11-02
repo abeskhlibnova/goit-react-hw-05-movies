@@ -6,14 +6,12 @@ import MovieList from 'components/MoviesLists/MovieList';
 import { MovieWrapper } from './Movies.styled';
 
 export default function Movies() {
-  const [search, setSearch] = useState('');
   const [movies, setMovies] = useState([]);
-
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('searchQuery');
 
   useEffect(() => {
-    if (!movies) {
+    if (searchQuery === null) {
       return;
     }
     const fetchSearchMovies = async () => {
@@ -28,20 +26,22 @@ export default function Movies() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const nextSearch = e.target.elements.search.value.toLowerCase();
-    if (search === nextSearch) {
-      setSearchParams('');
+    const nextSearch = e.target.elements.searchQuery.value.toLowerCase();
+    if (nextSearch === '') {
+      setSearchParams({});
       alert('Please enter a search name.');
       return;
     }
-    setSearch(nextSearch);
-    setMovies([]);
     setSearchParams({ searchQuery: nextSearch });
+  };
+
+  const changeFilter = value => {
+    setSearchParams(value !== '' ? { searchQuery: value } : {});
   };
 
   return (
     <MovieWrapper>
-      <SearchMovieForm onSubmit={handleSubmit} />
+      <SearchMovieForm onSubmit={handleSubmit} onChange={changeFilter} />
       {searchQuery === null && <p>Please, enter something in form above</p>}
       {searchQuery !== null && <MovieList items={movies} />}
     </MovieWrapper>

@@ -1,4 +1,3 @@
-// import { NavLink } from 'react-router-dom';
 import items from './items';
 import { StyledNavLink, NavbarMenuUl, NavbarItems } from './NavbarMenu.styled';
 
